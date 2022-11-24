@@ -27,7 +27,12 @@ public class NutViewModel extends AndroidViewModel {
     }
 
     public void insertNut(Nut nut){
-        mNutDB.getNutDAO().insertNut(nut);
+        NutDB.DB_EXECUTOR_SERVICE.execute(new Runnable() {
+            @Override
+            public void run() {
+                mNutDB.getNutDAO().insertNut(nut);
+            }
+        });
     }
 
 
